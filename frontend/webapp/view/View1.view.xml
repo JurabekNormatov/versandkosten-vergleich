@@ -1,0 +1,76 @@
+<mvc:View controllerName="project1.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core">
+
+    <Page id="page" title="Versandkosten Vergleich">
+        <content>
+
+               <Panel id="eingabePanel" headerText="Paketdaten eingeben" class="sapUiMediumMargin">                <content>
+                    <VBox class="sapUiSmallMargin">
+
+                        <Label text="Gewicht (kg)" required="true"/>
+                        <Input id="gewicht" placeholder="z.B. 2.5" type="Number" class="sapUiSmallMarginBottom"/>
+
+                        <Label text="Länge (cm)" required="true"/>
+                        <Input id="laenge" placeholder="z.B. 30" type="Number" class="sapUiSmallMarginBottom"/>
+
+                        <Label text="Breite (cm)" required="true"/>
+                        <Input id="breite" placeholder="z.B. 20" type="Number" class="sapUiSmallMarginBottom"/>
+
+                        <Label text="Höhe (cm)" required="true"/>
+                        <Input id="hoehe" placeholder="z.B. 15" type="Number" class="sapUiSmallMarginBottom"/>
+
+                        <Label text="Absenderland" required="true"/>
+                        <Select id="absenderland" class="sapUiSmallMarginBottom">
+                            <items>
+                                <core:Item key="DE" text="Deutschland (DE)"/>
+                                <core:Item key="AT" text="Österreich (AT)"/>
+                                <core:Item key="CH" text="Schweiz (CH)"/>
+                            </items>
+                        </Select>
+
+                        <Label text="Zielland" required="true"/>
+                        <Select id="zielland" class="sapUiSmallMarginBottom">
+                            <items>
+                                <core:Item key="DE" text="Deutschland (DE)"/>
+                                <core:Item key="AT" text="Österreich (AT)"/>
+                                <core:Item key="CH" text="Schweiz (CH)"/>
+                                <core:Item key="FR" text="Frankreich (FR)"/>
+                                <core:Item key="US" text="USA (US)"/>
+                            </items>
+                        </Select>
+
+                        <Button
+                            id="vergleichenBtn"
+                            text="Preise vergleichen"
+                            type="Emphasized"
+                            press="onVergleichen"
+                            class="sapUiSmallMarginTop"/>
+
+                    </VBox>
+                </content>
+            </Panel>
+
+            <Panel id="ergebnisPanel"
+                headerText="Vergleichsergebnis"
+                visible="false"
+                class="sapUiMediumMarginBeginEnd sapUiMediumMarginBottom">
+                <content>
+                    <List id="ergebnisList"/>
+                </content>
+            </Panel>
+
+            <MessageStrip
+                id="fehlerStrip"
+                text="Ein Fehler ist aufgetreten"
+                type="Error"
+                showIcon="true"
+                visible="false"
+                class="sapUiMediumMarginBeginEnd"/>
+
+        </content>
+    </Page>
+</mvc:View>

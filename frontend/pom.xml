@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- ==========================================
+         PROJEKT-IDENTITÄT
+         Wie Maven dein Projekt in der Welt identifiziert.
+         groupId = dein "Namespace" (wie ein Java-Package)
+         artifactId = Name deines Projekts
+         version = aktuelle Version
+    =========================================== -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.5.14-SNAPSHOT</version>
+		<relativePath/>
+		<!--
+            Der "Parent" ist wie eine Vorlage.
+            Spring Boot definiert hier schon sinnvolle
+            Standardkonfigurationen für alle Dependencies.
+            Deshalb müssen wir bei den meisten Dependencies
+            unten keine Version angeben — der Parent weiß es.
+        -->
+	</parent>
+
+	<groupId>com.jurabek</groupId>
+	<artifactId>versand</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>versandkosten-vergleich</name>
+	<description>Versandkosten-Vergleichsportal fuer DHL, Hermes und DPD</description>
+
+	<!-- ==========================================
+         JAVA VERSION
+    =========================================== -->
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+
+	<!-- ==========================================
+         DEPENDENCIES — unsere Bausteine
+    =========================================== -->
+	<dependencies>
+
+		<!-- 1. SPRING WEB — REST API Grundlage
+             Bringt: @RestController, @GetMapping, @PostMapping,
+             eingebetteter Tomcat-Server, Jackson (JSON-Konvertierung)
+        -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- 2. SPRING DATA JPA — Datenbankzugriff
+             Bringt: @Entity, @Repository, JpaRepository,
+             automatische SQL-Generierung via Hibernate
+        -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<!-- 3. MYSQL CONNECTOR — Verbindung zu MySQL
+             Scope "runtime": wird nur zur Laufzeit gebraucht,
+             nicht beim Kompilieren. Maven-Optimierung.
+        -->
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- 4. VALIDATION — Eingabe-Validierung
+             Bringt: @NotNull, @Min, @Max, @NotBlank, @Size
+             Schützt deine API vor ungültigen Eingaben
+        -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+
+		<!-- 5. LOMBOK — Boilerplate-Code Eliminator
+             @Data = Getter + Setter + toString + equals + hashCode
+             @Builder = Builder-Pattern
+             @Slf4j = Logger automatisch erstellen
+             WICHTIG: In IntelliJ musst du das Lombok-Plugin
+             aktivieren und "Enable Annotation Processing" einschalten
+        -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+			<!--
+                optional=true bedeutet: wenn jemand dein Projekt
+                als Dependency nutzt, bekommt er Lombok nicht
+                automatisch mit. Korrekt so.
+            -->
+		</dependency>
+
+		<!-- 6. SPRINGDOC OPENAPI — Swagger UI
+             Erreichbar unter: http://localhost:8080/swagger-ui.html
+             Dokumentiert automatisch alle deine Endpoints.
+             Version muss manuell angegeben werden —
+             der Spring Boot Parent kennt diese Library nicht.
+        -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
+		<!-- 7. SPRING BOOT TEST — Testing Framework
+             Bringt: JUnit 5, Mockito, AssertJ, Spring Test
+             scope=test bedeutet: nur für Tests kompiliert,
+             landet nicht in deinem fertigen JAR
+        -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<!-- ==========================================
+         BUILD PLUGINS
+    =========================================== -->
+	<build>
+		<plugins>
+
+			<!-- Spring Boot Maven Plugin
+                 Ermöglicht: mvn spring-boot:run
+                 Erstellt ein "fat JAR" — ein JAR das alles
+                 enthält (inkl. Tomcat), direkt ausführbar mit:
+                 java -jar versand-0.0.1-SNAPSHOT.jar
+            -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!-- Lombok aus dem finalen JAR ausschließen —
+                         zur Laufzeit nicht gebraucht -->
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>
