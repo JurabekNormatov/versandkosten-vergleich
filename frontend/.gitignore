@@ -44,3 +44,4 @@ build/
 ### VS Code ###
 .vscode/
 >>>>>>> e81f7eda848fea5fc6ba22b12dfeaea9b654e439
+node_modules/
