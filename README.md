@@ -37,16 +37,19 @@ und zeigt dem Nutzer automatisch den günstigsten Anbieter.
 - Fehlerbehandlung wenn ein Anbieter nicht erreichbar ist
 
 ## Projektstruktur
+
+```
 versandkosten-vergleich/
-├── backend/                     ← Spring Boot REST API
+├── backend/
 │   └── src/main/java/com/jurabek/versand/
-│       ├── controller/          ← REST Endpoints
-│       ├── service/             ← DHL, Hermes, DPD Logik
-│       └── model/               ← Request & Response Objekte
-└── frontend/                    ← SAP Fiori UI5 App
-└── webapp/
-├── view/                ← XML Views
-└── controller/          ← JavaScript Controller
+│       ├── controller/
+│       ├── service/
+│       └── model/
+└── frontend/
+    └── webapp/
+        ├── view/
+        └── controller/
+```
 
 ## API Endpoint
 POST http://localhost:8080/api/v1/versand/vergleichen
